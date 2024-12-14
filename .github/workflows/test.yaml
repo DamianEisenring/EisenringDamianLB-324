@@ -1,3 +1,11 @@
+name: Run Tests with pytest
+
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+
 services:
   mysql:
     image: mysql:5.7
