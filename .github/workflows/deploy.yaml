@@ -1,4 +1,4 @@
-name: Build and Deploy to Azure
+name: Build Executable
 
 on:
   push:
@@ -6,26 +6,35 @@ on:
       - 'v*'  # Nur ausführen, wenn ein Tag wie v1.0, v1.1 erstellt wird
 
 jobs:
-  build-and-deploy:
+  build-executable:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Code auschecken
+    # 1. Check out code
     - name: Check out code
       uses: actions/checkout@v3
 
-    # 2. Python-Umgebung einrichten (falls nötig)
+    # 2. Set up Python
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
         python-version: '3.11'
 
-    # 3. Abhängigkeiten installieren
+    # 3. Install dependencies
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    # 4. Docker-Image erstellen (für Azure oder lokal)
-    - name: Build Docker image
-      run: docker build -t my-flask-app:${{ github.ref_name }} .
+    # 4. Build executable
+    - name: Build executable with PyInstaller
+      run: |
+        pyinstaller --onefile main.py
+        mv dist/main app-executable  # Rename for clarity
+
+    # 5. Upload the executable as an artifact
+    - name: Upload executable
+      uses: actions/upload-artifact@v3
+      with:
+        name: flask-app-executable
+        path: app-executable
