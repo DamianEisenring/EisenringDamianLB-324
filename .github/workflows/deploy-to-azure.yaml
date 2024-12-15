@@ -1,3 +1,10 @@
+name: Build and Deploy to Azure Web App
+
+on:
+  push:
+    branches:
+      - main  # Trigger für Pushes auf den Main-Branch
+
 jobs:
   build:
     runs-on: ubuntu-latest
