@@ -1,5 +1,5 @@
 # Basis-Image mit Python
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 # Arbeitsverzeichnis im Container
 WORKDIR /app
