@@ -32,10 +32,10 @@ jobs:
         username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
         password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
 
-
-    - name: Build Docker image
+    - name: Build Docker image with debug
       run: |
-        docker build -t eisenringdamianregistry.azurecr.io/eisenringdamian-lb324:latest .
+        docker --debug build -t eisenringdamianregistry.azurecr.io/eisenringdamian-lb324:latest .
+
 
     - name: Push Docker image
       run: |
